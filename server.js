@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-require('./routes/user.routes')(app);
+require('./routes/CAdmin.routes')(app);
 
 
 
