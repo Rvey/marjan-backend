@@ -12,11 +12,11 @@ const getAllPromotions = async (req, res) => {
 const getPromotionById = async (req, res) => {
   try {
     const Promotions = await Promotion.findAll();
-    const Promotion = Promotions.find((u) => u.id == req.params.id);
-    if (!Promotion) {
+    const promotion = Promotions.find((p) => p.id == req.params.id);
+    if (!promotion) {
       res.json({ message: "Promotion Not Found" });
     }
-    res.json(Promotion);
+    res.json(promotion);
   } catch (error) {
     res.json({ message: error.message });
   }

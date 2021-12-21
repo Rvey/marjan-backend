@@ -9,7 +9,6 @@ class Promotion {
       });
     });
   }
-
   static async create(promotion) {
     con.query("INSERT INTO promotions SET ?", {
       promotion: promotion.promotion,
@@ -29,6 +28,7 @@ class Promotion {
       status: promotion.status,
     });
   }
+
   static async destroy(id) {
     con.query(`DELETE FROM promotions WHERE id =${id}`, (err, result) => {
       if (err) throw err;
@@ -37,3 +37,4 @@ class Promotion {
   }
 }
 module.exports = Promotion;
+

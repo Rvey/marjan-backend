@@ -1,5 +1,7 @@
 module.exports = (app) => {
   const promotionController = require("../api/Controllers/PromotionController");
+  const Register
+
 
   app.get("/", promotionController.getAllPromotions);
 
@@ -20,9 +22,10 @@ module.exports = (app) => {
   });
 
   app.post("/register", (req, res) => {
-    res.json({ Message: "register" });
+   
   });
   app.get("/profile", (req, res) => {
     res.json({ Message: "register" });
   });
 };
+
