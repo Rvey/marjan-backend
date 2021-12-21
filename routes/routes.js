@@ -19,7 +19,7 @@ module.exports = (app) => {
    */
   app.post("/login", Auth.login )
 
-  app.post("/register", (req, res) => {});
+  app.post("/register", Auth.createAdmin);
   app.get("/profile", (req, res) => {
     res.json({ Message: "register" });
   });
