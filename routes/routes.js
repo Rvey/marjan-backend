@@ -17,6 +17,9 @@ module.exports = (app) => {
   // centerAdmin route
 
   app.get("/getcenteradmin", CAdminController.getAllAdmins);
+  app.get("/onecenteradmin/:id", CAdminController.getCenterAdminById);
+  app.put("/updatcenteradmin/:id", CAdminController.updatecenteradmin);
+
 
 
 
