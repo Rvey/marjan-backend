@@ -23,7 +23,7 @@ const createAdmin = async (req, res) => {
     }
 
     //Encrypt user password
-    encryptedPassword = await bcrypt.hash(password, 10);
+    // encryptedPassword = await bcrypt.hash(password, 10);
 
     const token = jwt.sign(
       { email },
@@ -37,7 +37,7 @@ const createAdmin = async (req, res) => {
       firstName,
       lastName,
       email: email.toLowerCase(), // sanitize: convert email to lowercase
-      password: encryptedPassword,
+      password: password,
       token: token
     });
 
