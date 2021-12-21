@@ -1,6 +1,11 @@
 module.exports = (app) => {
   const promotionController = require("../api/Controllers/PromotionController");
+
   const Auth = require("../api/Controllers/AdminAuthController")
+
+  const CAdminController = require("../api/Controllers/CAdminController");
+
+
 
 
   app.get("/promotion", promotionController.getAllPromotions);
@@ -12,6 +17,15 @@ module.exports = (app) => {
   app.put("/updatePromo/:id", promotionController.updatePromotion);
 
   app.delete("/deletePromo/:id", promotionController.deletePromotion);
+
+  // centerAdmin route
+
+  app.get("/getcenteradmin", CAdminController.getAllAdmins);
+  app.get("/onecenteradmin/:id", CAdminController.getCenterAdminById);
+  app.put("/updatcenteradmin/:id", CAdminController.updatecenteradmin);
+
+
+
 
   /**
    *
