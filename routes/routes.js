@@ -22,7 +22,7 @@ module.exports = (app) => {
   });
 
   app.post("/register", (req, res) => {
-   
+
   });
   app.get("/profile", (req, res) => {
     res.json({ Message: "register" });
