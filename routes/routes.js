@@ -1,9 +1,9 @@
 module.exports = (app) => {
   const promotionController = require("../api/Controllers/PromotionController");
-  const Register
+  const Auth = require("../api/Controllers/AdminAuthController")
 
 
-  app.get("/", promotionController.getAllPromotions);
+  app.get("/promotion", promotionController.getAllPromotions);
 
   app.post("/promotion", promotionController.createPromotion);
 
@@ -17,13 +17,9 @@ module.exports = (app) => {
    *
    * Auth routes
    */
-  app.post("/login", (req, res) => {
-    res.json({ Message: "login" });
-  });
+  app.post("/login", Auth.login )
 
-  app.post("/register", (req, res) => {
-
-  });
+  app.post("/register", (req, res) => {});
   app.get("/profile", (req, res) => {
     res.json({ Message: "register" });
   });

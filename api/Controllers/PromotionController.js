@@ -31,6 +31,7 @@ const createPromotion = async (req, res) => {
   } catch (error) {
     res.json({ message: error.message });
   }
+
 };
 
 const updatePromotion = async (req, res) => {
