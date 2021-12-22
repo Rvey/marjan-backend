@@ -1,47 +1,7 @@
 const Auth = require("../Models/Auth");
 const jwt = require("jsonwebtoken");
 
-const createAdmin = async (req, res) => {
-  try {
-    // Get user input
-    const { firstName, lastName, email, password } = req.body;
 
-    // Validate user input
-    if (!(email && password)) {
-      res.status(400).send("All input is required");
-    }
-
-    // check if user already exist
-    // Validate if user exist in our database
-    const Admins = await Auth.findAllAdmins();
-
-    const oldAdmin = Admins.find((admin) => admin.email == email);
-
-    if (oldAdmin) {
-      return res.status(409).send("User Already Exist. Please Login");
-    }
-
-    const token = jwt.sign({ email }, `${process.env.JWT_SECRET_KEY}`, {
-      expiresIn: "2h",
-    });
-    // Create user in our database
-    const admin = await Auth.create({
-      firstName,
-      lastName,
-      email: email.toLowerCase(), // sanitize: convert email to lowercase
-      password: password,
-      token: token,
-    });
-
-    // Create token
-
-    res.json(admin);
-    // return new user
-    res.status(201).json(admin);
-  } catch (err) {
-    console.log(err);
-  }
-};
 
 const login = async (req, res) => {
   try {
@@ -80,6 +40,5 @@ const login = async (req, res) => {
 };
 
 module.exports = {
-  login,
-  createAdmin,
+  login
 };
