@@ -12,8 +12,9 @@ const sendMail = async (email, password) => {
     let mailDetails = {
       from: "rredouane3440@gmail.com",
       to: `${email}`,
-      subject: "deltaAir flight confirmation",
-      html: `hello ${password}`,
+      subject: "MARJAN CORP",
+      title: "YOU CENTER ADMIN PASSWORD",
+      html: `Your password is <h1>${password}</h1>`,
     };
 
     mailTransporter.sendMail(mailDetails, function (err, data) {

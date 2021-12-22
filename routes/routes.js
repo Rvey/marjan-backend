@@ -1,7 +1,7 @@
 module.exports = (app) => {
   const promotionController = require("../api/Controllers/PromotionController");
 
-  const Auth = require("../api/Controllers/AdminAuthController");
+  const Auth = require("../api/Controllers/CAdminAuthController");
 
   const CAdminController = require("../api/Controllers/CAdminController");
   const RAdminController = require("../api/Controllers/RAdminController");
@@ -36,4 +36,7 @@ module.exports = (app) => {
    * Auth routes
    */
   app.post("/login", Auth.login);
+  app.put("/updatePassword", Auth.UpdatePasswordLogin);
+  app.post("/validation", Auth.EmailLogin);
+
 };

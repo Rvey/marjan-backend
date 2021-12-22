@@ -1,10 +1,10 @@
-const Auth = require("../Models/Auth");
+const Auth = require("../Models/AuthCAdmin");
 const jwt = require("jsonwebtoken");
 const sendMail = require("../../ultil/mail");
 
 const EmailLogin = async (req, res) => {
   try {
-    const Admins = await Auth.findAllAdmins();
+    const Admins = await Auth.findAllCenterAdmins();
 
     const { email, password } = req.body;
 
@@ -29,7 +29,7 @@ const EmailLogin = async (req, res) => {
 
 const login = async (req, res) => {
   try {
-    const Admins = await Auth.findAllAdmins();
+    const Admins = await Auth.findAllCenterAdmins();
 
     const { email, password } = req.body;
 
