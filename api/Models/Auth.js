@@ -18,6 +18,12 @@ class Auth {
       token: admin_center.token
     });
   };
+
+  static update = async (token , id) => {
+    con.query(`UPDATE admin_center SET ? WHERE id =${id}`, {
+      token: token,
+    });
+  }
 }
 
 module.exports = Auth;
