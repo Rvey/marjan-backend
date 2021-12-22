@@ -1,7 +1,6 @@
 const Auth = require("../Models/Auth");
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
-const con = require("../../config/db");
+
 const createAdmin = async (req, res) => {
   try {
     // Get user input
@@ -22,23 +21,16 @@ const createAdmin = async (req, res) => {
       return res.status(409).send("User Already Exist. Please Login");
     }
 
-    //Encrypt user password
-    encryptedPassword = await bcrypt.hash(password, 10);
-
-    const token = jwt.sign(
-      { email },
-      `${process.env.JWT_SECRET_KEY}`,
-      {
-        expiresIn: "2h",
-      }
-    );
+    const token = jwt.sign({ email }, `${process.env.JWT_SECRET_KEY}`, {
+      expiresIn: "2h",
+    });
     // Create user in our database
     const admin = await Auth.create({
       firstName,
       lastName,
       email: email.toLowerCase(), // sanitize: convert email to lowercase
-      password: encryptedPassword,
-      token: token
+      password: password,
+      token: token,
     });
 
     // Create token
@@ -63,7 +55,6 @@ const login = async (req, res) => {
     }
 
     // validate if user exist in our database
-
     const CAdmin = Admins.find(
       (admin) =>
         admin.email == req.body.email && admin.password == req.body.password
@@ -77,11 +68,9 @@ const login = async (req, res) => {
           expiresIn: "2h",
         }
       );
-      res.status(200).json(token);
+      await Auth.update(token, CAdmin.id);
 
-      con.query(`UPDATE admin_center SET ? WHERE id =${CAdmin.id}`, {
-        token: token,
-      });
+      res.status(200).json(`welcome ${CAdmin.email}`);
     }
     res.status(400).send("Invalid Credentials");
     // create token
