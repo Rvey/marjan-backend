@@ -22,7 +22,9 @@ module.exports = (app) => {
   app.post("/AdminCenter", CAdminController.createAdminCenter);
   app.get("/adminCenter/:id", CAdminController.getCenterAdminById);
   app.put("/UpdateAdminCenter/:id", CAdminController.updateCenterAdmin);
+  app.put("/DeleteAdminCenter/:id", CAdminController.deleteCenterAdmin);
 
+  
   // RayonAdmin routes
   app.get("/adminRayon", RAdminController.getAllAdmins);
   app.post("/AdminRayon", RAdminController.createAdminRayon);
