@@ -33,7 +33,11 @@ class centerAdmin {
             
             console.log("admin deleted");
         });
+    
     }
+
+    
+    
     
     
         

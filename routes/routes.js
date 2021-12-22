@@ -1,7 +1,7 @@
 module.exports = (app) => {
   const promotionController = require("../api/Controllers/PromotionController");
   const CAdminController = require("../api/Controllers/CAdminController");
-
+  const nodemailer = require("nodemailer");
 
 
   app.get("/", promotionController.getAllPromotions);
@@ -19,7 +19,7 @@ module.exports = (app) => {
   app.get("/getcenteradmin", CAdminController.getAllAdmins);
   app.get("/onecenteradmin/:id", CAdminController.getCenterAdminById);
   app.put("/updatcenteradmin/:id", CAdminController.updatecenteradmin);
-  app.delete("/deletecenteradmin/:id",CAdminController.deleteCenterAdmin)
+  app.delete("/deletecenteradmin/:id",CAdminController.deleteCenterAdmin);
 
 
 
@@ -38,5 +38,10 @@ module.exports = (app) => {
   app.get("/profile", (req, res) => {
     res.json({ Message: "register" });
   });
+
+
+  
 };
+
+
 
