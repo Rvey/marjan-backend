@@ -18,14 +18,13 @@ module.exports = (app) => {
   // centerAdmin route
 
   app.get("/adminCenter", CAdminController.getAllAdmins);
+  app.post("/AdminCenter", CAdminController.createAdminCenter);
   app.get("/adminCenter/:id", CAdminController.getCenterAdminById);
-  app.put("/UpdateAdminCenter/:id", CAdminController.updatecenteradmin);
+  app.put("/UpdateAdminCenter/:id", CAdminController.updateCenterAdmin);
 
   /**
    *
    * Auth routes
    */
   app.post("/login", Auth.login);
-
-  app.post("/register", Auth.createAdmin);
 };
