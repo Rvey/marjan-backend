@@ -1,4 +1,4 @@
-const con = require("../../config/db");
+const con = require("./config/db");
 
 class Auth {
   static findAllRayonAdmins = () => {
@@ -9,7 +9,17 @@ class Auth {
       });
     });
   };
-
+  static createRayonAdmin = async (admin_rayon) => {
+    con.query("INSERT INTO chef_rayon SET ?", {
+      firstName: admin_rayon.firstName,
+      lastName: admin_rayon.lastName,
+      email: admin_rayon.email,
+      id_admin_center: admin_rayon.id_admin_center,
+      password: admin_rayon.password,
+      rayon: admin_rayon.rayon,
+      token: admin_rayon.token,
+    });
+  };
   static create = async (admin_center) => {
     con.query("INSERT INTO chef_rayon SET ?", {
       firstName: admin_center.firstName,

@@ -32,7 +32,6 @@ class Promotion {
   static async destroy(id) {
     con.query(`DELETE FROM promotions WHERE id =${id}`, (err, result) => {
       if (err) throw err;
-      console.log(JSON.stringify({ message: "promotion Removed" }));
     });
   }
 }

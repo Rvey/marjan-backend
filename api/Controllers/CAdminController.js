@@ -1,9 +1,10 @@
-const Admin = require("../Models/centerAdmin");
 const jwt = require("jsonwebtoken");
-const Auth = require("../Models/Auth");
+const CenterAdmin = require("../Models/centerAdmin");
+const sendMail = require("../../ultil/mail");
+
 const getAllAdmins = async (req, res) => {
   try {
-    const Admins = await Admin.getAll();
+    const Admins = await CenterAdmin.getAll();
     res.json(Admins);
   } catch (error) {
     res.json({ message: error.message });
@@ -12,7 +13,7 @@ const getAllAdmins = async (req, res) => {
 
 const getCenterAdminById = async (req, res) => {
   try {
-    const Admins = await Admin.getAll();
+    const Admins = await CenterAdmin.getAll();
     const AdminById = Admins.find((e) => e.id == req.params.id);
     if (!AdminById) {
       res.json({ message: "Center Admin Not Found" });
@@ -30,24 +31,26 @@ const createAdminCenter = async (req, res) => {
 
     // Validate user input
     if (!(email && password)) {
-      res.status(400).send("All input is required");
+      res.status(400).json({ message: "All input is required" });
     }
 
     // check if user already exist
     // Validate if user exist in our database
-    const Admins = await Auth.findAllAdmins();
+    const Admins = await CenterAdmin.getAll();
 
     const oldAdmin = Admins.find((admin) => admin.email == email);
 
     if (oldAdmin) {
-      return res.status(409).send("User Already Exist. Please Login");
+      return res
+        .status(409)
+        .json({ message: "User Already Exist. Please Login" });
     }
 
     const token = jwt.sign({ email }, `${process.env.JWT_SECRET_KEY}`, {
       expiresIn: "2h",
     });
     // Create user in our database
-    const admin = await Auth.create({
+    const admin = await CenterAdmin.create({
       firstName,
       lastName,
       email: email.toLowerCase(), // sanitize: convert email to lowercase
@@ -55,19 +58,15 @@ const createAdminCenter = async (req, res) => {
       token: token,
     });
 
-    // Create token
-
-    res.json(admin);
-    // return new user
-    res.status(201).json(admin);
+    res.status(201).json({ message: "center admin created successfully" });
   } catch (err) {
-    console.log(err);
+    res.status(400).json({ message: err });
   }
 };
 
 const updateCenterAdmin = async (req, res) => {
   try {
-    await Admin.update(req.body, req.params.id);
+    await CenterAdmin.update(req.body, req.params.id);
     res.json({
       message: "well updated",
     });
@@ -77,8 +76,73 @@ const updateCenterAdmin = async (req, res) => {
 };
 const deleteCenterAdmin = async (req, res) => {
   try {
-    await Admin.destroy(req.params.id);
+    await CenterAdmin.destroy(req.params.id);
     res.json({ message: "well deleted" });
+  } catch (error) {
+    res.json({ message: error.message });
+  }
+};
+
+const EmailLogin = async (req, res) => {
+  try {
+    const Admins = await CenterAdmin.getAll();
+
+    const { email, password } = req.body;
+
+    // validate user creds
+    if (!email) {
+      res.status(400).send("All input is required");
+    }
+
+    // validate if user exist in our database
+    const CAdmin = Admins.find((admin) => admin.email == req.body.email);
+
+    if (CAdmin) {
+      await sendMail.sendMail(email, CAdmin.password);
+      res.json({ message: "Email has been send with your password" });
+    }
+
+    // create token
+  } catch (error) {
+    res.json({ message: error.message });
+  }
+};
+
+const login = async (req, res) => {
+  try {
+    const Admins = await CenterAdmin.getAll();
+
+    const { email, password } = req.body;
+
+    // validate user creds
+    if (!(email && password)) {
+      res.status(400).send("All input is required");
+    }
+
+    // validate if user exist in our database
+    const CAdmin = Admins.find(
+      (admin) =>
+        admin.email == req.body.email && admin.password == req.body.password
+    );
+
+    if (CAdmin) {
+      const CToken = jwt.sign(
+        { id: CAdmin.id },
+        `${process.env.JWT_SECRET_KEY}`,
+        {
+          expiresIn: "2h",
+        }
+      );
+
+      const { firstName, lastName, email, password, token } = CAdmin;
+      // save the new token
+      CAdmin.token = CToken;
+      await CenterAdmin.update(CAdmin, CAdmin.id);
+
+      res.status(200).json({ message: CAdmin });
+    }
+    res.status(400).send("Invalid Credentials");
+    // create token
   } catch (error) {
     res.json({ message: error.message });
   }
@@ -90,4 +154,6 @@ module.exports = {
   updateCenterAdmin,
   createAdminCenter,
   deleteCenterAdmin,
+  EmailLogin,
+  login,
 };
