@@ -1,10 +1,13 @@
 module.exports = (app) => {
   const promotionController = require("../api/Controllers/PromotionController");
 
-  const Auth = require("../api/Controllers/CAdminAuthController");
+  const AuthCA = require("../api/Controllers/CAdminAuthController");
+  const AuthRA = require("../api/Controllers/RAdminAuthController");
 
   const CAdminController = require("../api/Controllers/CAdminController");
   const RAdminController = require("../api/Controllers/RAdminController");
+
+  // PROMOTION
 
   app.get("/promotion", promotionController.getAllPromotions);
 
@@ -24,7 +27,6 @@ module.exports = (app) => {
   app.put("/UpdateAdminCenter/:id", CAdminController.updateCenterAdmin);
   app.put("/DeleteAdminCenter/:id", CAdminController.deleteCenterAdmin);
 
-  
   // RayonAdmin routes
   app.get("/adminRayon", RAdminController.getAllAdmins);
   app.post("/AdminRayon", RAdminController.createAdminRayon);
@@ -33,10 +35,17 @@ module.exports = (app) => {
 
   /**
    *
-   * Auth routes
+   * Auth routes CENTER ADMIN
    */
-  app.post("/login", Auth.login);
-  app.put("/updatePassword", Auth.UpdatePasswordLogin);
-  app.post("/validation", Auth.EmailLogin);
+  app.post("/login/CA", AuthCA.login);
+  app.put("/updatePassword/CA", AuthCA.UpdatePasswordLogin);
+  app.post("/validation/CA", AuthCA.EmailLogin);
 
+  /**
+   *
+   * Auth routes CHEF RAYON
+   */
+  app.post("/login/RA", AuthRA.login);
+  app.put("/updatePassword/RA", AuthRA.UpdatePasswordLogin);
+  app.post("/validation/RA", AuthRA.EmailLogin);
 };
