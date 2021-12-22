@@ -17,12 +17,12 @@ class centerAdmin {
             resolve(res);
         })
     }
-    static async update(CenterAdmin,id){
+    static async update(RayonAdmin,id){
         con.query(`UPDATE admin_center SET ? WHERE id = ${id}`,{
-            firstName : CenterAdmin.firstName,
-            lastName : CenterAdmin.lastName,
-            email : CenterAdmin.email,
-            password : CenterAdmin.password
+            firstName : RayonAdmin.firstName,
+            lastName : RayonAdmin.lastName,
+            email : RayonAdmin.email,
+            password : RayonAdmin.password
 
         });
     }

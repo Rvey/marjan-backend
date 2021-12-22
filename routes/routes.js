@@ -4,6 +4,7 @@ module.exports = (app) => {
   const Auth = require("../api/Controllers/AdminAuthController");
 
   const CAdminController = require("../api/Controllers/CAdminController");
+  const RAdminController = require("../api/Controllers/RAdminController");
 
   app.get("/promotion", promotionController.getAllPromotions);
 
@@ -21,6 +22,12 @@ module.exports = (app) => {
   app.post("/AdminCenter", CAdminController.createAdminCenter);
   app.get("/adminCenter/:id", CAdminController.getCenterAdminById);
   app.put("/UpdateAdminCenter/:id", CAdminController.updateCenterAdmin);
+
+  // RayonAdmin routes
+  app.get("/adminRayon", RAdminController.getAllAdmins);
+  app.post("/AdminRayon", RAdminController.createAdminRayon);
+  app.get("/adminRayon/:id", RAdminController.getRayonAdminById);
+  app.put("/UpdateAdminRayon/:id", RAdminController.updateRayonAdmin);
 
   /**
    *
