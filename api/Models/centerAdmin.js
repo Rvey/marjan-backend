@@ -27,6 +27,13 @@ class centerAdmin {
 
         });
     }
+    static async destroy(id){
+        con.query(`DELETE FROM admin_center WHERE id =${id}`, (err,res)=> {
+            if(err) throw err ;
+            
+            console.log("admin deleted");
+        });
+    }
     
     
         

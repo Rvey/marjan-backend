@@ -34,10 +34,21 @@ const updatecenteradmin = async(req,res)=>{
         res.json({message: error.message});
     }
 }
+const deleteCenterAdmin = async(req,res)=>{
+    try{
+        await Admin.destroy(req.params.id);
+        res.json({messaage : "well deleted"})
+        
+    }catch(error){
+        res.json({ message: error.message });
+    }
+    
+}
 
 module.exports = {
     getAllAdmins,
     getCenterAdminById,
-    updatecenteradmin
+    updatecenteradmin,
+    deleteCenterAdmin
   };
   
