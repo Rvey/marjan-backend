@@ -13,7 +13,7 @@ class Promotion {
     con.query("INSERT INTO promotions SET ?", {
       promotion: promotion.promotion,
       id_chef_rayon: promotion.id_chef_rayon,
-      id_produit: promotion.id_produit,
+      id_product: promotion.id_product,
       date_promotion: promotion.date_promotion,
       status: promotion.status,
     });
@@ -23,7 +23,7 @@ class Promotion {
     con.query(`UPDATE promotions SET ? WHERE id =${id}`, {
       promotion: promotion.promotion,
       id_chef_rayon: promotion.id_chef_rayon,
-      id_produit: promotion.id_produit,
+      id_product: promotion.id_product,
       date_promotion: promotion.date_promotion,
       status: promotion.status,
     });
@@ -32,7 +32,6 @@ class Promotion {
   static async destroy(id) {
     con.query(`DELETE FROM promotions WHERE id =${id}`, (err, result) => {
       if (err) throw err;
-      console.log(JSON.stringify({ message: "promotion Removed" }));
     });
   }
 }
