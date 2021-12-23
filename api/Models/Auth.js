@@ -9,6 +9,11 @@ class Auth {
       });
     });
   };
+  static async update(token, id) {
+    con.query(`UPDATE admin SET ? WHERE id = ${id}`, {
+      token: token,
+    });
+  }
 }
 
 module.exports = Auth;

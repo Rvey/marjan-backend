@@ -2,6 +2,10 @@ module.exports = (app) => {
   const promotionController = require("../api/Controllers/PromotionController");
   const CAdminController = require("../api/Controllers/CAdminController");
   const RAdminController = require("../api/Controllers/RAdminController");
+  const Admin = require("../api/Controllers/AdminAuthController")
+
+  // admin 
+  app.post("/login", Admin.login);
 
   // PROMOTION
   app.get("/promotion", promotionController.getAllPromotions);
