@@ -1,5 +1,8 @@
 const Promotion = require("../Models/Promotion");
 const fs = require("fs");
+const Product = require("../Models/Product");
+const Rayon = require("../Models/rayon");
+
 const getAllPromotions = async (req, res) => {
   try {
     const Promotions = await Promotion.findAll();
@@ -24,9 +27,35 @@ const getPromotionById = async (req, res) => {
 
 const createPromotion = async (req, res) => {
   try {
-    await Promotion.create(req.body);
+    // const product = await Product.getProductById(req.body.id_product);
+
+    const rayon = await Rayon.getRayonById(req.body.id_rayon);
+
+    if (parseInt(req.body.promotion) <= 50) {
+      if (rayon[0].nom == "multimedia" && req.body.promotion <= 20) {
+        req.body.loyalty_points = (req.body.promotion / 5) * 50;
+        await Promotion.create(req.body);
+        res.json({
+          message: `promotion created for multimedia rayon`,
+        });
+      } else if (
+        rayon[0].nom == "electronic" ||
+        rayon[0].nom == "alimentation"
+      ) {
+        req.body.loyalty_points = (req.body.promotion / 5) * 50;
+        await Promotion.create(req.body);
+        res.json({
+          message: `promotion created not multimedia`,
+        });
+      }
+      // await Promotion.create(req.body);
+      res.json({
+        message: "promotion not created must be under 50%",
+      });
+    }
+
     res.json({
-      message: "Promotion Created",
+      message: "Promotion Not Created",
     });
   } catch (error) {
     res.json({ message: error.message });

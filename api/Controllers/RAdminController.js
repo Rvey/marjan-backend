@@ -83,6 +83,7 @@ const createAdminRayon = async (req, res) => {
 
 const updateRayonAdmin = async (req, res) => {
   try {
+    
     await RayonAdmin.update(req.body, req.params.id);
     res.json({
       message: "well updated",
