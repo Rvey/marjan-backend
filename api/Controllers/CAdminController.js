@@ -1,6 +1,8 @@
 const jwt = require("jsonwebtoken");
 const CenterAdmin = require("../Models/centerAdmin");
-const sendMail = require("../../ultil/mail");
+const sendMail = require("../../utils/mail");
+const cookie = require("cookie-parser");
+const sessions = require("express-session");
 
 const getAllAdmins = async (req, res) => {
   try {
@@ -135,11 +137,11 @@ const login = async (req, res) => {
       );
 
       const { firstName, lastName, email, password, token } = CAdmin;
-      // save the new token
       CAdmin.token = CToken;
       await CenterAdmin.update(CAdmin, CAdmin.id);
+      // res.cookie("centerAdmin", true, { maxAge: 1 });
 
-      res.status(200).json({ message: CAdmin });
+      res.status(200).json({ message: "logged in " });
     }
     res.status(400).send("Invalid Credentials");
     // create token

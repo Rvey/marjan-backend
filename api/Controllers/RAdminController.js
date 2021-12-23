@@ -1,8 +1,6 @@
 const RayonAdmin = require("../Models/AdminRayon");
 const jwt = require("jsonwebtoken");
-const sendMail = require("../../ultil/mail");
-
-// const Auth = require("../Models/Auth");
+const sendMail = require("../../utils/mail");
 
 const getAllAdmins = async (req, res) => {
   try {
@@ -168,7 +166,8 @@ const login = async (req, res) => {
       RAdmin.token = RAtoken;
 
       await RayonAdmin.update(RAdmin, RAdmin.id);
-      res.status(200).json(`welcome ${RAdmin.email}`);
+
+      res.status(200).json(`welcome ${hours}`);
     }
     res.status(400).send("Invalid Credentials");
     // create token

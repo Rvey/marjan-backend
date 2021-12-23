@@ -1,6 +1,6 @@
 const Auth = require("../Models/Auth");
 const jwt = require("jsonwebtoken");
-const sendMail = require("../../ultil/mail");
+const sendMail = require("../../utils/mail");
 
 const EmailLogin = async (req, res) => {
   try {
