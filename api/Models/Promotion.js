@@ -12,7 +12,8 @@ class Promotion {
   static async create(promotion) {
     con.query("INSERT INTO promotions SET ?", {
       promotion: promotion.promotion,
-      id_chef_rayon: promotion.id_chef_rayon,
+      id_admin_center: promotion.id_admin_center,
+      id_rayon: promotion.id_rayon,
       id_product: promotion.id_product,
       date_promotion: promotion.date_promotion,
       status: promotion.status,
@@ -22,7 +23,8 @@ class Promotion {
   static async update(promotion, id) {
     con.query(`UPDATE promotions SET ? WHERE id =${id}`, {
       promotion: promotion.promotion,
-      id_chef_rayon: promotion.id_chef_rayon,
+      id_admin_center: promotion.id_admin_center,
+      id_rayon: promotion.id_rayon,
       id_product: promotion.id_product,
       date_promotion: promotion.date_promotion,
       status: promotion.status,
