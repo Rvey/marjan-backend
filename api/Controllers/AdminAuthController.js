@@ -39,22 +39,22 @@ const login = async (req, res) => {
     }
 
     // validate if user exist in our database
-    const CAdmin = Admins.find(
+    const Admin = Admins.find(
       (admin) =>
         admin.email == req.body.email && admin.password == req.body.password
     );
 
-    if (CAdmin) {
+    if (Admin) {
       const token = jwt.sign(
-        { id: CAdmin.id },
+        { id: Admin.id },
         `${process.env.JWT_SECRET_KEY}`,
         {
           expiresIn: "2h",
         }
       );
-      await Auth.update(token, CAdmin.id);
+      await Auth.update(token, Admin.id);
 
-      res.status(200).json(`welcome ${CAdmin.email}`);
+      res.status(200).json({ welcome: Admin });
     }
     res.status(400).send("Invalid Credentials");
     // create token

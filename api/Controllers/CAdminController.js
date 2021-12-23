@@ -1,8 +1,6 @@
 const jwt = require("jsonwebtoken");
 const CenterAdmin = require("../Models/centerAdmin");
 const sendMail = require("../../utils/mail");
-const cookie = require("cookie-parser");
-const sessions = require("express-session");
 
 const getAllAdmins = async (req, res) => {
   try {
