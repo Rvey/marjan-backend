@@ -15,6 +15,7 @@ class Promotion {
       id_admin_center: promotion.id_admin_center,
       id_rayon: promotion.id_rayon,
       id_product: promotion.id_product,
+      loyalty_points: promotion.loyalty_points,
       date_promotion: promotion.date_promotion,
       status: promotion.status,
     });
@@ -25,6 +26,7 @@ class Promotion {
       promotion: promotion.promotion,
       id_admin_center: promotion.id_admin_center,
       id_rayon: promotion.id_rayon,
+      loyalty_points: promotion.loyalty_points,
       id_product: promotion.id_product,
       date_promotion: promotion.date_promotion,
       status: promotion.status,
@@ -38,4 +40,3 @@ class Promotion {
   }
 }
 module.exports = Promotion;
-
