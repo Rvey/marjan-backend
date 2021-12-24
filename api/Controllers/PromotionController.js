@@ -45,12 +45,11 @@ const createPromotion = async (req, res) => {
         req.body.loyalty_points = (req.body.promotion / 5) * 50;
         await Promotion.create(req.body);
         res.json({
-          message: `promotion created not multimedia`,
+          message: `promotion created `,
         });
       }
-      // await Promotion.create(req.body);
       res.json({
-        message: "promotion not created must be under 50%",
+        message: "promotion not created",
       });
     }
 
